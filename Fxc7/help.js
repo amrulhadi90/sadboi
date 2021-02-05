@@ -52,7 +52,7 @@ https://chat.whatsapp.com/GHC5djoQJrcGBJFwYQuQoB
 ͏͏͏͏͏͏͏͏͏͏͏͏͏͏╭──────「 *MEDIA DOWNLOADER* 」
 ┴
 │➻ *${prefix}tiktokstalk username*
-│➻ *${prefix}igstalk _farhan_xcode7*
+│➻ *${prefix}igstalk kapten.sadboy69*
 │➻ *${prefix}insta Link*
 │➻ *${prefix}instastory username*
 │➻ *${prefix}ssweb url*
