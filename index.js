@@ -63,16 +63,16 @@ const vcard = 'BEGIN:VCARD\n'
             + 'VERSION:3.0\n'
             + 'FN:Farhan\n'
             + 'ORG:Creator FXC7;\n'
-            + 'TEL;type=CELL;type=VOICE;waid=628311800241:+62 831-1800-241\n'
+            + 'TEL;type=CELL;type=VOICE;waid=62895334388886:+62 895-3343-88886\n'
             + 'END:VCARD'
 
 prefix = "!"
-name = "~ F X C 7 | B O T"
-rdaftar = "TERIMA KASIH TELAH DAFTAR MENJADI TEMEN FXC7BOT😁"
-rmenu = "HAI TEMEN FXC7BOT👋"
+name = "~ S A D B O Y|BOT"
+rdaftar = "TERIMA KASIH TELAH DAFTAR MENJADI TEMEN SadboyBOT😁"
+rmenu = "HAI TEMEN SadboyBOT👋"
 limitt = 10
 ban = []
-userpremium = ["628311800241@s.whatsapp.net"] //ubah nomer kalian
+userpremium = ["62895334388886@s.whatsapp.net"] //ubah nomer kalian
 
 function kyun(seconds){
   function pad(s){
@@ -224,7 +224,7 @@ const getRegisteredRandomId = () => {
             ]
 
 			const botNumber = client.user.jid
-			const ownerNumber = ["628311800241@s.whatsapp.net"] // owner number ubah aja
+			const ownerNumber = ["62895334388886@s.whatsapp.net","62895622002734@s.whatsapp.net"] // owner number ubah aja
 			const isGroup = from.endsWith('@g.us')
 			const sender = isGroup ? mek.participant : mek.key.remoteJid
 			const groupMetadata = isGroup ? await client.groupMetadata(from) : ''
@@ -3187,7 +3187,7 @@ const getRegisteredRandomId = () => {
 						console.log(muehe)
 						reply(muehe)
 					} else {
-						console.log(color('[FXC7BOT]','red'), 'Command Tidak Terdaftar', color(sender.split('@')[0]))
+						console.log(color('[SadboyBOT]','red'), 'Command Tidak Terdaftar', color(sender.split('@')[0]))
 					}
                            }
 		} catch (e) {
