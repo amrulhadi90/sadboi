@@ -72,7 +72,7 @@ rdaftar = "TERIMA KASIH TELAH DAFTAR MENJADI TEMEN SadboyBOT😁"
 rmenu = "HAI TEMEN SadboyBOT👋"
 limitt = 10
 ban = []
-userpremium = ["62895334388886@s.whatsapp.net","6283843313959@s.whatsapp.net"] //ubah nomer kalian
+userpremium = ["62895334388886@s.whatsapp.net","62895622002734@s.whatsapp.net"] //ubah nomer kalian
 
 function kyun(seconds){
   function pad(s){
