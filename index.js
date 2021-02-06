@@ -61,18 +61,18 @@ instagram, yt, groupLink, memberLimit
 
 const vcard = 'BEGIN:VCARD\n'
             + 'VERSION:3.0\n'
-            + 'FN:Farhan\n'
+            + 'FN:Iiky\n'
             + 'ORG:Creator FXC7;\n'
             + 'TEL;type=CELL;type=VOICE;waid=62895334388886:+62 895-3343-88886\n'
             + 'END:VCARD'
 
 prefix = "!"
-name = "~ S A D B O Y|BOT"
+name = "S A D B O Y|BOT"
 rdaftar = "TERIMA KASIH TELAH DAFTAR MENJADI TEMEN SadboyBOT😁"
 rmenu = "HAI TEMEN SadboyBOT👋"
 limitt = 10
 ban = []
-userpremium = ["62895334388886@s.whatsapp.net"] //ubah nomer kalian
+userpremium = ["62895334388886@s.whatsapp.net","6283843313959@s.whatsapp.net"] //ubah nomer kalian
 
 function kyun(seconds){
   function pad(s){
@@ -446,7 +446,7 @@ const getRegisteredRandomId = () => {
 					me = client.user
 					user.push(sender)
 					uptime = process.uptime()
-					teks = `⟩➢ *Nama Bot* : ${me.name}\n⟩➢ *Nomer Bot* : @${me.jid.split('@')[0]}\n⟩➢ *prefix* : | ${prefix} |\n⟩➢ *Total Block* : ${blocked.length}\n⟩➢ *Aktif Sejak* : ${kyun(uptime)}\n\n⟩➢ Total Pengguna: *${user.length}* User\n⟩➢ *Instagram* : https://www.instagram.com/_farhan_xcode7\n⟩➢ *Special Thanks To* :\n⟩➢ Allah SWT \n⟩➢ MahankBarBar`
+					teks = `⟩➢ *Nama Bot* : ${me.name}\n⟩➢ *Nomer Bot* : @${me.jid.split('@')[0]}\n⟩➢ *prefix* : | ${prefix} |\n⟩➢ *Total Block* : ${blocked.length}\n⟩➢ *Aktif Sejak* : ${kyun(uptime)}\n\n⟩➢ Total Pengguna: *${user.length}* User\n⟩➢ *Instagram* : https://www.instagram.com/kapten.sadboy69\n⟩➢ *Special Thanks To* :\n⟩➢ Allah SWT \n⟩➢ MahankBarBar`
 					buffer = await getBuffer(me.imgUrl)
 					client.sendMessage(from, buffer, image, {quoted: mek, caption: teks, contextInfo:{mentionedJid: [me.jid]}})
 					break
@@ -467,7 +467,15 @@ const getRegisteredRandomId = () => {
 					client.sendMessage(from, ben.trim(), extendedText, {quoted: mek, contextInfo: {"mentionedJid": ban}})
 					break 
 				case 'premiumlist':
-				prem = '```List User Premium F X C 7 B O T``` :\n'
+				case 'listpremium':
+				case 'userpremium':
+				case 'uservip':
+				case 'vipuser':
+				case 'listvip':
+				case 'listprem':
+				case 'lisprem':
+				case 'lisvip':
+				prem = '```List User Premium S A D B O Y``` :\n'
 					for (let userprem of userpremium) {
 						prem += `~> @${userprem.split('@')[0]}\n`
 					}
@@ -493,16 +501,18 @@ const getRegisteredRandomId = () => {
 					}
 					await limitAdd(sender) 
 					break 
-				case 'gifstiker':
-				case 'stiker':
+				case 'stiker': 
 				case 'sticker':
+				case 'stikergif':
+				case 'stickergif':
 				case 's':
-						if ((isMedia && !mek.message.videoMessage || isQuotedImage) && args.length == 0) {
+				case 'sg':
+				    if (isLimit(sender)) return reply(ind.limitend(pusname))
+                    await limitAdd(sender)
+					if ((isMedia && !mek.message.videoMessage || isQuotedImage) && args.length == 0) {
 						const encmedia = isQuotedImage ? JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo : mek
 						const media = await client.downloadAndSaveMediaMessage(encmedia)
-						if (isLimit(sender)) return reply(limitend(pushname2))
-						reply(mess.wait)
-						const ran= getRandom('.webp')
+						ran = getRandom('.webp')
 						await ffmpeg(`./${media}`)
 							.input(media)
 							.on('start', function (cmd) {
@@ -511,12 +521,12 @@ const getRegisteredRandomId = () => {
 							.on('error', function (err) {
 								console.log(`Error : ${err}`)
 								fs.unlinkSync(media)
-								reply(mess.error.stick)
+								reply(ind.stikga())
 							})
 							.on('end', function () {
 								console.log('Finish')
-								buff = fs.readFileSync(ran)
-								client.sendMessage(from, buff, sticker, {quoted: mek})
+								buffer = fs.readFileSync(ran)
+								client.sendMessage(from, buffer, sticker, {quoted: mek})
 								fs.unlinkSync(media)
 								fs.unlinkSync(ran)
 							})
@@ -526,8 +536,8 @@ const getRegisteredRandomId = () => {
 					} else if ((isMedia && mek.message.videoMessage.seconds < 11 || isQuotedVideo && mek.message.extendedTextMessage.contextInfo.quotedMessage.videoMessage.seconds < 11) && args.length == 0) {
 						const encmedia = isQuotedVideo ? JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo : mek
 						const media = await client.downloadAndSaveMediaMessage(encmedia)
-						const ran= getRandom('.webp')
-						reply(mess.wait)
+						ran = getRandom('.webp')
+						reply(ind.wait())
 						await ffmpeg(`./${media}`)
 							.inputFormat(media.split('.')[1])
 							.on('start', function (cmd) {
@@ -537,43 +547,22 @@ const getRegisteredRandomId = () => {
 								console.log(`Error : ${err}`)
 								fs.unlinkSync(media)
 								tipe = media.endsWith('.mp4') ? 'video' : 'gif'
-								reply(`\`\`\`Gagal, pada saat mengkonversi ${tipe} ke stiker\`\`\``)
+								reply(ind.stikga())
 							})
 							.on('end', function () {
 								console.log('Finish')
-								buff = fs.readFileSync(ran)
-								client.sendMessage(from, buff, sticker, {quoted: mek})
+								buffer = fs.readFileSync(ran)
+								client.sendMessage(from, buffer, sticker, {quoted: mek})
 								fs.unlinkSync(media)
 								fs.unlinkSync(ran)
 							})
 							.addOutputOptions([`-vcodec`,`libwebp`,`-vf`,`scale='min(320,iw)':min'(320,ih)':force_original_aspect_ratio=decrease,fps=15, pad=320:320:-1:-1:color=white@0.0, split [a][b]; [a] palettegen=reserve_transparent=on:transparency_color=ffffff [p]; [b][p] paletteuse`])
 							.toFormat('webp')
 							.save(ran)
-					} else if ((isMedia || isQuotedImage) && args[0] == 'nobg') {
-						const encmedia = isQuotedImage ? JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo : mek
-						const media = await client.downloadAndSaveMediaMessage(encmedia)
-						ranw = getRandom('.webp')
-						ranp = getRandom('.png')
-						reply(mess.wait)
-						keyrmbg = 'bcAvZyjYAjKkp1cmK8ZgQvWH'
-						await removeBackgroundFromImageFile({path: media, apiKey: keyrmbg.result, size: 'auto', type: 'auto', ranp}).then(res => {
-							fs.unlinkSync(media)
-							let buffer = Buffer.from(res.base64img, 'base64')
-							fs.writeFileSync(ranp, buffer, (err) => {
-								if (err) return reply('Gagal, Terjadi kesalahan, silahkan coba beberapa saat lagi.')
-							})
-							exec(`ffmpeg -i ${ranp} -vcodec libwebp -filter:v fps=fps=20 -lossless 1 -loop 0 -preset default -an -vsync 0 -s 512:512 ${ranw}`, (err) => {
-								fs.unlinkSync(ranp)
-								if (err) return reply(mess.error.stick)
-								buff = fs.readFileSync(ranw)
-								client.sendMessage(from, buff, sticker, {quoted: mek})
-							})
-						})
-					} else {
-						reply(`Kirim gambar dengan caption ${prefix}sticker atau tag gambar yang sudah dikirim`)
+							} else {
+						reply(`Kirim gambar dengan caption ${prefix}sticker atau reply/tag gambar`)
 					}
-					await limitAdd(sender) 
-					break 
+					break
 					
 				case 'img2url':
            if (!isUser) return reply(mess.only.userB)
@@ -866,6 +855,11 @@ const getRegisteredRandomId = () => {
 					reply(`berhasil banned : ${ban}`)
 					break
 				case 'addprem':
+				case 'addvip':
+				case 'auv':
+				case 'aup':
+				case 'ap':
+				case 'av':
 					client.updatePresence(from, Presence.composing)
 					if (args.length < 1) return
 					if (!isOwner) return reply(mess.only.ownerB)
@@ -1123,7 +1117,7 @@ const getRegisteredRandomId = () => {
                          text: teks1,
                          contextInfo: {mentionedJid: [nomor]},
                      }
-                    client.sendMessage('628311800241@s.whatsapp.net', options, text, {quoted: mek})
+                    client.sendMessage('6283843313959@s.whatsapp.net', options, text, {quoted: mek})
                     reply('Masalah telah di laporkan ke owner BOT, laporan palsu/main2 tidak akan ditanggapi.')
                     break
                 case 'request':
@@ -1138,7 +1132,7 @@ const getRegisteredRandomId = () => {
                          text: ress,
                          contextInfo: {mentionedJid: [nomor]},
                      }
-                    client.sendMessage('628311800241@s.whatsapp.net', options, text, {quoted: mek})
+                    client.sendMessage('6283843313959@s.whatsapp.net', options, text, {quoted: mek})
                     reply('REQUEST ANDA TELAH SAMPAI ke owner BOT, Requests palsu/main2 tidak akan ditanggapi.')
                     break
 				case 'meme':
@@ -1551,7 +1545,7 @@ const getRegisteredRandomId = () => {
                   }
                   reply(store.trim())
                   break
-               case 'pornhub':
+               case 'pornhub3910301938171637181':
 			   if (isBanned) return reply(mess.only.benned)    
 			   if (!isUser) return reply(mess.only.userB)
 			   if (isLimit(sender)) return reply(limitend(pushname2))
@@ -1567,7 +1561,7 @@ const getRegisteredRandomId = () => {
 			     	await limitAdd(sender) 
 			     	break  
 			     	
-			     case 'xxx':
+			     case 'xxx38193919183716':
 			   if (isBanned) return reply(mess.only.benned)    
 			   if (!isUser) return reply(mess.only.userB)
 			   if (isLimit(sender)) return reply(limitend(pushname2))
@@ -2413,9 +2407,15 @@ const getRegisteredRandomId = () => {
 						client.groupMakeAdmin(from, mentioned)
 					}
 					break
-				case 'delete':
+					case 'delete':
 					case 'del':
-					case 'd':
+					case 'hpus':
+					case 'delet':
+					case 'hapuschat':
+					case 'delchat':
+					case 'del':
+					case 'oh':
+					case 'y':
 					if (!isGroup)return reply(mess.only.group)
 					if (!isGroupAdmins) return reply(mess.only.admin)
 					client.deleteMessage(from, { id: mek.message.extendedTextMessage.contextInfo.stanzaId, remoteJid: from, fromMe: true })
@@ -2726,21 +2726,6 @@ const getRegisteredRandomId = () => {
             }
             await limitAdd(sender)
             break 
-
-         case 'pinterest':
-         if (isBanned) return reply(mess.only.benned)    
-				if (!isUser) return reply(mess.only.userB)
-				if (isLimit(sender)) return reply(limitend(pushname2))
-					if (args.length < 1) return reply('Mau Nyari Foto Apa???')
-					pinte = body.slice(11)
-					anu = await fetchJson(`https://api.vhtear.com/pinterest?query=${pinte}&apikey=${VthearApi}`, {method: 'get'})
-					reply(mess.wait)
-					var pin = JSON.parse(JSON.stringify(anu.result));
-					var trest =  pin[Math.floor(Math.random() * pin.length)];
-					pinehg = await getBuffer(trest)
-					client.sendMessage(from, pinehg, image, { caption: '*Pinterest*\n\n*Hasil Pencarian : '+pinte+'*', quoted: mek })
-					await limitAdd(sender) 
-					break 
 					
 		case 'jadwalsholat':
 				if (isBanned) return reply(mess.only.benned)    
@@ -2794,6 +2779,27 @@ const getRegisteredRandomId = () => {
                 await limitAdd(sender) 
                 break  
                 
+                 case 'pinterest':
+                 case 'pinteres':
+                 case 'printerst':
+                 case 'printeres':
+                 case 'perinterest':
+                 case 'perinteres':
+                if (isBanned) return reply(mess.only.benned)
+				if (!isUser) return reply(mess.only.userB)
+				if (!isPrem) return reply(mess.only.premium)
+				if (isLimit(sender)) return reply(limitend(pushname2))
+					if (args.length < 1) return reply('Mau Nyari Foto Apa???')
+					pinte = body.slice(11)
+					anu = await fetchJson(`https://api.vhtear.com/pinterest?query=${pinte}&apikey=${VthearApi}`, {method: 'get'})
+					reply(mess.wait)
+					var pin = JSON.parse(JSON.stringify(anu.result));
+					var trest =  pin[Math.floor(Math.random() * pin.length)];
+					pinehg = await getBuffer(trest)
+					client.sendMessage(from, pinehg, image, { caption: '*Pinterest*\n\n*Hasil Pencarian : '+pinte+'*', quoted: mek })
+					await limitAdd(sender) 
+					break 
+					
           case 'snack':
 			if (isBanned) return reply(mess.only.benned)    
 				if (!isUser) return reply(mess.only.userB)
